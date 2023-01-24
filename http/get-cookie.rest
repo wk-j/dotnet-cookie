@@ -1,0 +1,2 @@
+GET http://localhost:5227/api/my/get-cookie
+Cookie: MyCookie=CfDJ8A6MJIJg9ztHhPSwUnDq9hGKj8507eljXEyo3VeQDtZmFXl5I1FklJwxFXM48RMDSZxbgtdEwhK3gQ7pSstv8roRLF4_Mdok-citwzVVrnO0Xd_kGmrQ8h2ao5x1NNsrlg; path=/
