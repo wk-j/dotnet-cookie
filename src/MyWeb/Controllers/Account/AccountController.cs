@@ -22,12 +22,18 @@ public class AccountController(ILogger<AccountController> logger) : Controller {
         return View();
     }
 
+    [HttpGet("logout")]
+    public async Task<ActionResult> Logout() {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return Redirect("/account/login");
+    }
+
     [HttpPost("login")]
     public async Task<ActionResult> Login2([FromForm] LoginInfo info, string returnUrl = "/account/index") {
-        if (info.Username == "wk") {
+        if (info.Password == "11") {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, "wk"),
+                new Claim(ClaimTypes.Name, info.Username),
                 new Claim(ClaimTypes.Country, "Thailand"),
                 new Claim(ClaimTypes.Role, "Administrator"),
             };
@@ -48,11 +54,13 @@ public class AccountController(ILogger<AccountController> logger) : Controller {
     [Authorize]
     [HttpGet("get-name")]
     public string GetName() {
-        return "wk";
+        var nameClaim = User.FindFirst(ClaimTypes.Name)?.Value;
+        return nameClaim ?? "No name found";
     }
 
     [HttpGet("error")]
     public string Error() {
+
         return "Please login";
     }
 
