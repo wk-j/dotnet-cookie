@@ -24,7 +24,10 @@ public class AccountController(ILogger<AccountController> logger) : Controller {
 
     [HttpGet("logout")]
     public async Task<ActionResult> Logout() {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme, new AuthenticationProperties {
+            ExpiresUtc = DateTimeOffset.UtcNow,
+            IsPersistent = false
+        });
         return Redirect("/account/login");
     }
 
